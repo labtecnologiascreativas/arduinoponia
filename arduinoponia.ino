@@ -18,6 +18,9 @@ const unsigned long riegoTiempoRetardo = 500;       // Tiempo de actual del cont
 void setup() {
   Serial.begin(9600);             // Para debuggear
   pinMode(0, INPUT);              // Sensor Humedad (nuestros clavos)
+  pinMode(2, OUTPUT);  
+  pinMode(3, OUTPUT);  
+  pinMode(4, OUTPUT);  
   pinMode(bombaAguaPin, OUTPUT);  // Para activar la bomba de agua.
   #define VALOR_HUMEDAD_MIN 300   // Valor minimo para la lectura de la humedad.
   #define VALOR_HUMEDAD_MAX 800   // Valor maximo para la lectura de la humedad.
@@ -28,10 +31,19 @@ void setup() {
 // Hace un for para apagar los leds en pins 0 1 y 2.
 // Luego prende el led correspondiente para representar el nivel de humedad.
 void dibujarHumedad(int nivelHumedad) {
-  for (int i = 0; i <= 2; i++) {
+  for (int i = 2; i <= 4; i++) {
     digitalWrite(i, LOW);
   }
-  digitalWrite(nivelHumedad, LOW);
+  
+  if (nivelHumedad == 0) {
+    digitalWrite(4, HIGH);
+  }
+  if (nivelHumedad == 1) {
+    digitalWrite(3, HIGH);
+  }
+  if (nivelHumedad == 2) {
+    digitalWrite(2, HIGH);
+  }
 }
 
 
